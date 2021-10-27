@@ -126,15 +126,17 @@ if [[ "$OSTYPE" == "darwin"* ]]
 then
   printf "Copying launchd service to %s/Library/LaunchAgents/ \n" "$HOME"
   sudo mv "com.samsterckval.watchgoat.plist" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
-  sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
+  sudo sed -i.bak "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   launchctl enable com.samsterckval.watchgoat.plist
   launchctl kickstart -p com.samsterckval.watchgoat.plist
+  sudo rm "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist.bak"
 elif [[ "$OSTYPE" == "linux"* ]]
 then
   printf "Copying systemd service & timer to /etc/systemd/system/ \n"
   sudo mv "watchgoat.server" "/etc/systemd/system/watchgoat.service"
   sudo mv "watchgoat.timer" "/etc/systemd/system/watchgoat.timer"
-  sudo sed -i"s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "/etc/systemd/system/watchgoat.service"
+  sudo sed -i.bak "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "/etc/systemd/system/watchgoat.service"
+  sudo rm "/etc/systemd/system/watchgoat.service.bak"
   sudo systemctl daemon-reload
   sudo systemctl start watchgoat.timer
   sudo systemctl enable watchgoat.timer
