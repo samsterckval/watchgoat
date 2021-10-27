@@ -8,7 +8,7 @@ WatchGoat&trade;, a band-aid for your shitty brain and lazy ass.
 This will install the script as `service` and it will run at boot
 
 ```bash
-curl https://raw.githubusercontent.com/samsterckval/watchgoat/main/install.sh | bash
+curl https://raw.githubusercontent.com/samsterckval/watchgoat/main/install.sh -o install.sh && bash install.sh
 ```
 
 ### Manual installation ###

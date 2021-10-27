@@ -21,12 +21,12 @@ printf "Welcome to watchgoat, let's install this motherfucker on your system.\n"
 
 if [[ "$OSTYPE" == "darwin"* ]]
 then
-  printf "Running MacOS, going the launchd route"
+  printf "Running MacOS, going the launchd route\n"
   curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/main.py
   curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/launchd/com.samsterckval.watchgoat.plist
 elif [[ "$OSTYPE" == "linux"* ]]
 then
-  printf "Running Linux, going the systemd route"
+  printf "Running Linux, going the systemd route\n"
   curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/main.py
   curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/systemd/watchgoat.service
   curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/systemd/watchgoat.timer
@@ -82,7 +82,7 @@ then
     touch "$URL_DEST"
     printf "Where did you deploy the WatchGoat server?  (e.g. https://mydomain.hosting.com/)\n"
     read -r BASEURL
-    printf "%s/goat" "$BASEURL" >> "$URL_DEST"
+    printf "%sgoat" "$BASEURL" >> "$URL_DEST"
 else
     printf "WatchGoat URL file @ %s already exists, contents of it are not changed in any way\n" "$URL_DEST"
 fi
@@ -125,15 +125,16 @@ sudo chmod +x "$EXEC_DEST"
 if [[ "$OSTYPE" == "darwin"* ]]
 then
   printf "Copying launchd service to %s/Library/LaunchAgents/ \n" "$HOME"
-  sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "com.samsterckval.watchgoat.plist"
+
   sudo mv "com.samsterckval.watchgoat.plist" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
+  sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   launchctl load com.samsterckval.watchgoat.plist
 elif [[ "$OSTYPE" == "linux"* ]]
 then
   printf "Copying systemd service & timer to /etc/systemd/system/ \n"
-  sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "watchgoat.service"
   sudo mv "watchgoat.server" "/etc/systemd/system/watchgoat.service"
   sudo mv "watchgoat.timer" "/etc/systemd/system/watchgoat.timer"
+  sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "/etc/systemd/system/watchgoat.service"
   sudo systemctl daemon-reload
   sudo systemctl start watchgoat.timer
   sudo systemctl enable watchgoat.timer

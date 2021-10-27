@@ -10,9 +10,6 @@
             <string>PATHTOEXECUTABLE</string>
         </array>
 
-        <key>Nice</key>
-        <integer>1</integer>
-
         <key>StartInterval</key>
         <integer>30</integer>
 
