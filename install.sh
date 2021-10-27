@@ -95,9 +95,9 @@ then
     printf "Tip : If this is a Raspberry Pi, an NXP i.MX8(unconfirmed) or from the NVIDIA Jetson family, use 'rpi',\n"
     printf "for a device running MacOS, use 'mac'. This will translate to the unique serial number of the device.\n"
     printf "Else, just use a unique, recognisable name.\n"
-    read -r USERNAME
+    read -p "username : " USERNAME
     printf "Password?\n"
-    read -r PASSWORD
+    read -p "password : " PASSWORD
 #    printf "IP getter method?"
 #    printf "For now, only 'netifaces' is supported, so this is a pseudo-choice, fuck you"
 #    read -r IPMETHOD
