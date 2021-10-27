@@ -1,6 +1,10 @@
 #!/bin/sh
 
-echo Installing Edgise WatchGoat       # Just some random print to know it actually starts
+echo "Installing WatchGoat"       # Just some random print to know it actually starts
+
+curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/main.py
+curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/systemd/watchgoat.service
+curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/systemd/watchgoat.timer
 
 sudo -H pip install netifaces
 
@@ -63,10 +67,14 @@ SCRIPTPATH=$(dirname "$SCRIPT")
 
 echo "Path to this script : $SCRIPTPATH"
 
-# Create symbolic link
-ln -s "$SCRIPTPATH/main.py" "$DEST"
+# Create symbolic link -- We don't do that anymore
+#ln -s "$SCRIPTPATH/main.py" "$DEST"
 
-echo "Symbolic link created for $SCRIPTPATH/main.py @ $DEST"
+# Move and rename the main python script
+sudo mv "main.py" "$DEST"
+
+# We don't do this either anymore
+#echo "Symbolic link created for $SCRIPTPATH/main.py @ $DEST"
 
 # Make the link executable
 chmod +x "$DEST"
@@ -74,8 +82,12 @@ chmod +x "$DEST"
 echo "Made $DEST executable"
 
 # Copy systemd services
-sudo cp "$SCRIPTPATH/systemd/watchgoat.service" "/etc/systemd/system/watchgoat.service"
-sudo cp "$SCRIPTPATH/systemd/watchgoat.timer" "/etc/systemd/system/watchgoat.timer"
+#sudo cp "$SCRIPTPATH/systemd/watchgoat.service" "/etc/systemd/system/watchgoat.service"
+#sudo cp "$SCRIPTPATH/systemd/watchgoat.timer" "/etc/systemd/system/watchgoat.timer"
+
+# These should be downloaded with curl
+sudo mv "watchgoat.server" "/etc/systemd/system/watchgoat.service"
+sudo mv "watchgoat.timer" "/etc/systemd/system/watchgoat.timer"
 
 echo "Copied files to /etc/systemd/system/"
 
