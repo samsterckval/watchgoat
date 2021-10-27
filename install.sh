@@ -125,23 +125,22 @@ sudo chmod +x "$EXEC_DEST"
 if [[ "$OSTYPE" == "darwin"* ]]
 then
   printf "Copying launchd service to %s/Library/LaunchAgents/ \n" "$HOME"
-
   sudo mv "com.samsterckval.watchgoat.plist" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
-  sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
+  sudo sed "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   launchctl load com.samsterckval.watchgoat.plist
 elif [[ "$OSTYPE" == "linux"* ]]
 then
   printf "Copying systemd service & timer to /etc/systemd/system/ \n"
   sudo mv "watchgoat.server" "/etc/systemd/system/watchgoat.service"
   sudo mv "watchgoat.timer" "/etc/systemd/system/watchgoat.timer"
-  sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "/etc/systemd/system/watchgoat.service"
+  sudo sed "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "/etc/systemd/system/watchgoat.service"
   sudo systemctl daemon-reload
   sudo systemctl start watchgoat.timer
   sudo systemctl enable watchgoat.timer
 fi
 
 
-printf "All fucking done! Goat away you majestic beast!\n"
+printf "All fucking done! Get Goating you majestic beast!\n"
 
 # Not going to throw this away, might come in handy in a few commits
 # Absolute path to this script, e.g. /home/user/bin/foo.sh
