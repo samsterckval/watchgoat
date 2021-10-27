@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-printf "Welcome to watchgoat, let's install this motherfucker on your system."
+printf "Welcome to watchgoat, let's install this motherfucker on your system.\n"
 
 
 ### What needs to be done?
@@ -55,20 +55,20 @@ SECRETS_DEST="$INFO_DIR/$SECRETS_FILE"
 
 if [ ! -d "$BIN_DIR" ]
 then
-    printf "Bin directory %s doesn't exist. Creating now" "$BIN_DIR"
+    printf "Bin directory %s doesn't exist. Creating now\n" "$BIN_DIR"
     mkdir "$BIN_DIR"
     printf "Created"
 else
-    printf "Bin directory %s already exists, did nothing yet" "$BIN_DIR"
+    printf "Bin directory %s already exists, did nothing yet\n" "$BIN_DIR"
 fi
 
 if [ ! -d "$INFO_DIR" ]
 then
-    echo "Info directory %s doesn't exist. Creating now" "$INFO_DIR"
+    printf "Info directory %s doesn't exist. Creating now\n" "$INFO_DIR"
     mkdir "$INFO_DIR"
-    echo "Created"
+    printf "Created"
 else
-    echo "Info directory %s already exist, did nothing yet" "$INFO_DIR"
+    printf "Info directory %s already exist, did nothing yet\n" "$INFO_DIR"
 fi
 
 
@@ -78,25 +78,25 @@ fi
 
 if [ ! -f "$URL_DEST" ]
 then
-    printf "Creating WatchGoat URL file @ %s" "$URL_DEST"
+    printf "Creating WatchGoat URL file @ %s\n" "$URL_DEST"
     touch "$URL_DEST"
-    echo "Where did you deploy the WatchGoat server?  (e.g. https://mydomain.hosting.com/)"
+    printf "Where did you deploy the WatchGoat server?  (e.g. https://mydomain.hosting.com/)\n"
     read -r BASEURL
     printf "%s/goat" "$BASEURL" >> "$URL_DEST"
 else
-    echo "WatchGoat URL file @ %s already exists, contents of it are not changed in any way" "$URL_DEST"
+    printf "WatchGoat URL file @ %s already exists, contents of it are not changed in any way\n" "$URL_DEST"
 fi
 
 if [ ! -f "$SECRETS_DEST" ]
 then
-    printf "Creating WatchGoat secrets file @ %s" "$SECRETS_DEST"
+    printf "Creating WatchGoat secrets file @ %s\n" "$SECRETS_DEST"
     touch "$SECRETS_DEST"
-    printf "Username?"
-    printf "Tip : If this is a Raspberry Pi, an NXP i.MX8(unconfirmed) or from the NVIDIA Jetson family, use 'rpi',"
-    printf "for a device running MacOS, use 'mac'. This will translate to the unique serial number of the device."
-    printf "Else, just use a unique, recognisable name."
+    printf "Username?\n"
+    printf "Tip : If this is a Raspberry Pi, an NXP i.MX8(unconfirmed) or from the NVIDIA Jetson family, use 'rpi',\n"
+    printf "for a device running MacOS, use 'mac'. This will translate to the unique serial number of the device.\n"
+    printf "Else, just use a unique, recognisable name.\n"
     read -r USERNAME
-    printf "Password?"
+    printf "Password?\n"
     read -r PASSWORD
 #    printf "IP getter method?"
 #    printf "For now, only 'netifaces' is supported, so this is a pseudo-choice, fuck you"
@@ -104,7 +104,7 @@ then
     IPMETHOD="netifaces"
     printf "%s\n%s\n%s" "$USERNAME" "$PASSWORD" "$IPMETHOD" >> "$SECRETS_DEST"
 else
-    echo "WatchGoat secrets file @ %s already exists, contents of it are not changed in any way" "$SECRETS_DEST"
+    printf "WatchGoat secrets file @ %s already exists, contents of it are not changed in any way\n" "$SECRETS_DEST"
 fi
 
 
@@ -124,13 +124,13 @@ sudo chmod +x "$EXEC_DEST"
 
 if [[ "$OSTYPE" == "darwin"* ]]
 then
-  printf "Copying launchd service to %s/Library/LaunchAgents/" "$HOME"
+  printf "Copying launchd service to %s/Library/LaunchAgents/ \n" "$HOME"
   sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "com.samsterckval.watchgoat.plist"
   sudo mv "com.samsterckval.watchgoat.plist" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   launchctl load com.samsterckval.watchgoat.plist
 elif [[ "$OSTYPE" == "linux"* ]]
 then
-  printf "Copying systemd service & timer"
+  printf "Copying systemd service & timer to /etc/systemd/system/ \n"
   sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "watchgoat.service"
   sudo mv "watchgoat.server" "/etc/systemd/system/watchgoat.service"
   sudo mv "watchgoat.timer" "/etc/systemd/system/watchgoat.timer"
@@ -139,6 +139,8 @@ then
   sudo systemctl enable watchgoat.timer
 fi
 
+
+printf "All fucking done! Goat away you majestic beast!\n"
 
 # Not going to throw this away, might come in handy in a few commits
 # Absolute path to this script, e.g. /home/user/bin/foo.sh
