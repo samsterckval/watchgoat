@@ -20,9 +20,9 @@
         <true/>
 
         <key>StandardErrorPath</key>
-        <string>/tmp/watchgoat.err</string>
+        <string>/tmp/com.samsterckval.watchgoat.err</string>
 
         <key>StandardOutPath</key>
-        <string>/tmp/watchgoat.out</string>
+        <string>/tmp/com.samsterckval.watchgoat.out</string>
     </dict>
 </plist>

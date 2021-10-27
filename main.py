@@ -67,7 +67,7 @@ def get_serial_rpi() -> str:
 
 
 def get_serial_apple() -> str:
-    command = "ioreg -l | awk '/IOPlatformSerialNumber/ { print $4 }' | sed s/\\\"//g"
+    command = "ioreg -c IOPlatformExpertDevice -d 2 | awk -F\\\" '/IOPlatformSerialNumber/{print $(NF-1)}'"
     serial = os.popen(command).read().replace("\n", "")
     return serial
 
