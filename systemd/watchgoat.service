@@ -1,0 +1,6 @@
+[Unit]
+Description=Edgise WatchGoat
+
+[Service]
+Type=oneshot
+ExecStart=PATHTOEXECUTABLE
