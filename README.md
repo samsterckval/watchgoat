@@ -2,7 +2,7 @@
 
 ![alt text](https://i.imgur.com/yBxMPT3.png "Retarded goat")
 
-Edgise WatchGoat&trade;, a band-aid for your shitty brain and lazy ass.
+WatchGoat&trade;, a band-aid for your shitty brain and lazy ass.
 
 ### Installation ###
 * run install.sh
