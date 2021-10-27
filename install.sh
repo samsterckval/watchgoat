@@ -127,7 +127,8 @@ then
   printf "Copying launchd service to %s/Library/LaunchAgents/ \n" "$HOME"
   sudo mv "com.samsterckval.watchgoat.plist" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   sudo sed -i "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
-  launchctl load com.samsterckval.watchgoat.plist
+  launchctl enable com.samsterckval.watchgoat.plist
+  launchctl kickstart -p com.samsterckval.watchgoat.plist
 elif [[ "$OSTYPE" == "linux"* ]]
 then
   printf "Copying systemd service & timer to /etc/systemd/system/ \n"
