@@ -5,17 +5,11 @@
         <key>Label</key>
         <string>com.samsterckval.watchgoat</string>
 
-        <key>Program</key>
-        <string>PATHTOEXECUTABLE</string>
-
         <key>ProgramArguments</key>
         <array>
-            <string>
-                PATHTOURLS
-            </string>
-            <string>
-                PATHTOSECRETS
-            </string>
+            <string>PATHTOEXECUTABLE</string>
+            <string>PATHTOURLS</string>
+            <string>PATHTOSECRETS</string>
         </array>
 
         <key>StartInterval</key>
