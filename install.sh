@@ -145,7 +145,7 @@ then
 elif [[ "$OSTYPE" == "linux"* ]]
 then
   printf "Copying systemd service & timer to /etc/systemd/system/ \n"
-  sudo mv "watchgoat.server" "/etc/systemd/system/watchgoat.service"
+  sudo mv "watchgoat.service" "/etc/systemd/system/watchgoat.service"
   sudo mv "watchgoat.timer" "/etc/systemd/system/watchgoat.timer"
   sudo sed -i.bak "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "/etc/systemd/system/watchgoat.service"
   sudo rm "/etc/systemd/system/watchgoat.service.bak"
