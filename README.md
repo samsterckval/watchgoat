@@ -5,10 +5,17 @@
 WatchGoat&trade;, a band-aid for your shitty brain and lazy ass.
 
 ### Installation ###
-This will install the script as `service` and it will run at boot
+This will install the script as `service` and it will run at boot.
 
 ```bash
 curl https://raw.githubusercontent.com/samsterckval/watchgoat/main/install.sh -o install.sh && bash install.sh
+```
+
+### Installation ###
+This will uninstall the launchd or systemd service from your machine.
+
+```bash
+curl https://raw.githubusercontent.com/samsterckval/watchgoat/main/uninstall.sh | bash
 ```
 
 ### Manual installation ###
