@@ -11,7 +11,7 @@ This will install the script as `service` and it will run at boot.
 curl https://raw.githubusercontent.com/samsterckval/watchgoat/main/install.sh -o install.sh && bash install.sh
 ```
 
-### Installation ###
+### Uninstall ###
 This will uninstall the launchd or systemd service from your machine.
 
 ```bash
