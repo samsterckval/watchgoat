@@ -12,8 +12,8 @@ then
 elif [[ "$OSTYPE" == "linux"* ]]
 then
   printf "Running Linux\n"
-  systemctl disable watchgoat.timer
-  systemctl stop watchgoat.timer
+  sudo systemctl disable watchgoat.timer
+  sudo systemctl stop watchgoat.timer
   printf "Stopped the systemd service\n"
   sudo rm "/etc/systemd/system/watchgoat.service"
   sudo rm "/etc/systemd/system/watchgoat.timer"
