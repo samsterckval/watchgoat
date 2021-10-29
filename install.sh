@@ -127,8 +127,8 @@ then
   printf "Copying launchd service to %s/Library/LaunchAgents/ \n" "$HOME"
   sudo mv "com.samsterckval.watchgoat.plist" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   sudo sed -i.bak "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
-  launchctl enable com.samsterckval.watchgoat.plist
-  launchctl kickstart -p com.samsterckval.watchgoat.plist
+  launchctl enable "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
+  launchctl kickstart -p "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   sudo rm "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist.bak"
 elif [[ "$OSTYPE" == "linux"* ]]
 then

@@ -44,7 +44,7 @@ GET_IP_FACTORY: Dict[str, Callable] = {"netifaces": get_ip_netifaces}
 def get_userpass(secrets_file: str) -> Tuple[str, str]:
     with open(secrets_file, 'r') as f:
         contents = [line.strip() for line in f]
-        if len(contents) > 2:
+        if len(contents) > 3:
             print("Euhm, I got more then I asked for in the secrets, fuck you")
             raise Exception(f"Too much info in secrets. Expected 2 lines, found {len(contents)}")
 
@@ -67,6 +67,7 @@ def get_serial_rpi() -> str:
 
 
 def get_serial_apple() -> str:
+    # ioreg -c IOPlatformExpertDevice -d 2 | awk -F\" '/IOPlatformSerialNumber/{print $(NF-1)}'
     command = "ioreg -c IOPlatformExpertDevice -d 2 | awk -F\\\" '/IOPlatformSerialNumber/{print $(NF-1)}'"
     serial = os.popen(command).read().replace("\n", "")
     return serial
