@@ -140,7 +140,6 @@ then
   sudo sed -i.bak "s|PATHTOURLS|$URL_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   sudo sed -i.bak "s|PATHTOSECRETS|$SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   launchctl load "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
-#  launchctl kickstart -p "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   sudo rm "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist.bak"
 elif [[ "$OSTYPE" == "linux"* ]]
 then
