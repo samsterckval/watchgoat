@@ -23,14 +23,16 @@ printf "Welcome to watchgoat, let's install this motherfucker on your system.\n"
 if [[ "$OSTYPE" == "darwin"* ]]
 then
   printf "Running MacOS, going the launchd route\n"
-  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/main.py
-  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/launchd/com.samsterckval.watchgoat.plist
+  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/{main.py,launchd/com.samsterckval.watchgoat.plist}
+#  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/main.py
+#  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/launchd/com.samsterckval.watchgoat.plist
 elif [[ "$OSTYPE" == "linux"* ]]
 then
   printf "Running Linux, going the systemd route\n"
-  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/main.py
-  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/systemd/watchgoat.service
-  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/systemd/watchgoat.timer
+  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/{main.py,systemd/watchgoat.service,systemd/watchgoat.timer}
+#  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/main.py
+#  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/systemd/watchgoat.service
+#  curl -O https://raw.githubusercontent.com/samsterckval/watchgoat/main/systemd/watchgoat.timer
 fi
 
 
