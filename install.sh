@@ -46,10 +46,17 @@ fi
 
 ### INSTALL NETIFACES ###
 
-/usr/bin/python3 -m pip install --user requests
-/usr/bin/python3 -m pip install --user netifaces
-#sudo -H /usr/bin/python3 -m pip install netifaces
+# Systemd service will execute as root, launchd as user
 
+if [[ "$OSTYPE" == "darwin"* ]]
+then
+  /usr/bin/python3 -m pip install --user requests
+  /usr/bin/python3 -m pip install --user netifaces
+elif [[ "$OSTYPE" == "linux"* ]]
+then
+  sudo /usr/bin/python3 -m pip install requests
+  sudo /usr/bin/python3 -m pip install netifaces
+fi
 
 
 ### CHECK DIRECTORIES ###
