@@ -1,5 +1,5 @@
 [Unit]
-Description=Edgise WatchGoat
+Description=WatchGoat
 
 [Service]
 Type=oneshot
