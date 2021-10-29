@@ -6,6 +6,7 @@ printf "Welcome to watchgoat, let's install this motherfucker on your system.\n"
 
 ### What needs to be done?
 # * Download needed files
+# * Check if we have python3?
 # * Install netifaces
 # * Check and create needed directories
 # * Ask user for needed info
@@ -34,10 +35,19 @@ fi
 
 
 
+### CHECK FOR PYTHON? ###
+
+if ! /usr/bin/python3 -c 'import sys; assert sys.version_info >= (3,7)' > /dev/null; then
+  prinf "You need a newer python version (> 3.7)\n"
+  exit 1
+fi
+
+
 ### INSTALL NETIFACES ###
 
-
-sudo -H pip install netifaces
+/usr/bin/python3 -m pip install --user requests
+/usr/bin/python3 -m pip install --user netifaces
+#sudo -H /usr/bin/python3 -m pip install netifaces
 
 
 
@@ -126,7 +136,9 @@ if [[ "$OSTYPE" == "darwin"* ]]
 then
   printf "Copying launchd service to %s/Library/LaunchAgents/ \n" "$HOME"
   sudo mv "com.samsterckval.watchgoat.plist" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
-  sudo sed -i.bak "s|PATHTOEXECUTABLE|$EXEC_DEST $URL_DEST $SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
+  sudo sed -i.bak "s|PATHTOEXECUTABLE|$EXEC_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
+  sudo sed -i.bak "s|PATHTOURLS|$URL_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
+  sudo sed -i.bak "s|PATHTOSECRETS|$SECRETS_DEST|" "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   launchctl enable "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   launchctl kickstart -p "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist"
   sudo rm "$HOME/Library/LaunchAgents/com.samsterckval.watchgoat.plist.bak"
