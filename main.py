@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 
 from typing import List, Dict, Callable, Tuple
-import requests
+import subprocess
 import argparse
 import sys
 import os
+
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 
 def get_urls(file: str) -> List[str]:
@@ -81,6 +85,24 @@ if __name__ == "__main__":
     if sys.platform not in ['linux', 'darwin']:
         print("Only tested on Linux, aborting.")
         exit(0)
+
+    try:
+        import requests
+    except ModuleNotFoundError:
+        print(f"Requests package not found, this is odd.\n"
+              f"It should have been installed.\n"
+              f"Interpreter location : {sys.executable}\n"
+              f"Attempting to install anyway.")
+        install("requests")
+
+    try:
+        import netifaces
+    except ModuleNotFoundError:
+        print(f"netifaces package not found, this is odd.\n"
+              f"It should have been installed.\n"
+              f"Interpreter location : {sys.executable}\n"
+              f"Attempting to install anyway.")
+        install("netifaces")
 
     args = parse_args()
 
