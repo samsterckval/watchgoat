@@ -38,8 +38,8 @@ fi
 
 ### CHECK FOR PYTHON? ###
 
-if ! /usr/bin/python3 -c 'import sys; assert sys.version_info >= (3,7)' > /dev/null; then
-  printf "You need a newer python version (> 3.7)\n"
+if ! /usr/bin/python3 -c 'import sys; assert sys.version_info >= (3,6)' > /dev/null; then
+  printf "You need a newer python version (> 3.6)\n"
   exit 1
 fi
 
